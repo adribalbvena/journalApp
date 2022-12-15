@@ -52,8 +52,5 @@ export const LoginPage = () => {
 
     </AuthLayout>
 
-
-        
-
     )
 }
