@@ -1,5 +1,5 @@
 import { async } from "@firebase/util";
-import { registerUserWithEmailPassword, signInWithGoogle } from "../../firebase/providers";
+import { loginWithEmailPassword, registerUserWithEmailPassword, signInWithGoogle } from "../../firebase/providers";
 import { checkingCredentials, logout, login } from "./authSlice"
 
 export const checkingAuthentication = ( email, password ) => {
@@ -32,4 +32,19 @@ export const startCreatingUserWithEmailPassword = ({ email, password, displayNam
         
         dispatch( login({ uid, displayName, email, photoURL }));
     }
+}
+
+export const startLoginWithEmailPassword = ({ email, password }) => {
+    return async( dispatch ) => {
+        //to put it in the checking state and block buttons, etc.
+        dispatch( checkingCredentials() );
+
+        const result = await loginWithEmailPassword({ email, password });
+      
+        if ( !result.ok ) return dispatch( logout( result ) );
+
+        dispatch( login( result ));
+
+    }
+
 }
