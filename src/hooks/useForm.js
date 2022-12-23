@@ -14,6 +14,11 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
     
     }, [ formState ])
 
+    useEffect(() => {
+      setFormState( initialForm );
+    }, [ initialForm ])
+    
+
     const isFormValid = useMemo( () => {
         //to evaluate every property
         for (const formValue of Object.keys( formValidation )) {
