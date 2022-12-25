@@ -1,8 +1,8 @@
-import { useEffect, useMemo } from "react"
+import { useEffect, useMemo, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import { SaveOutlined } from "@mui/icons-material"
-import { Button, Grid, TextField, Typography } from "@mui/material"
+import { SaveOutlined, UploadOutlined } from "@mui/icons-material"
+import { Button, Grid, IconButton, TextField, Typography } from "@mui/material"
 import Swal from "sweetalert2"
 import 'sweetalert2/dist/sweetalert2.css';
 
@@ -24,6 +24,9 @@ export const NoteView = () => {
         return newDate.toUTCString();
     }, [date]);
 
+    //this will be used to call the input file in our upload icon button, this maintain the reference to the html input
+    const fileInputRef = useRef();
+
     useEffect(() => {
         //we send the formstate cause it has every property of the note, even the updated ones
       dispatch( setActiveNote(formState) ); 
@@ -42,6 +45,13 @@ export const NoteView = () => {
         dispatch( startSaveNote() );
     }
 
+    const onFileInputChange = ({ target }) => {
+        if ( target.files === 0 ) return;
+
+        // dispatch ( startUploadingFiles( target.files ) );
+
+    }
+
     
   return (
      <Grid 
@@ -57,6 +67,24 @@ export const NoteView = () => {
         </Grid>
 
         <Grid item>
+
+            <input 
+                type="file"
+                multiple
+                ref={ fileInputRef }
+                onChange={ onFileInputChange }
+                style={{ display: 'none' }}
+            />
+
+            <IconButton
+                color="primary"
+                disabled={ isSaving }
+                //this simulates the click over the icon
+                onClick={ () => fileInputRef.current.click() }
+            >
+                <UploadOutlined />
+            </IconButton>
+
             <Button 
                 disabled={ isSaving }
                 onClick={ onSaveNote }
@@ -94,7 +122,6 @@ export const NoteView = () => {
             />
         </Grid>
 
-        {/* Image gallery */}
         <ImageGallery />
 
      </Grid>
