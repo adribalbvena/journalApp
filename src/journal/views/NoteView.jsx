@@ -85,7 +85,7 @@ export const NoteView = () => {
                 // this simulates the click over the icon
                 onClick={ () => fileInputRef.current.click() }
             >
-                <UploadOutlined />
+                <UploadOutlined sx={{ fontSize: 30 }}/>
             </IconButton>
 
             <Button 
