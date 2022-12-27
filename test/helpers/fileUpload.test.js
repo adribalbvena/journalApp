@@ -9,7 +9,7 @@ cloudinary.config({
 });
 
 describe('Tests in fileUpload', () => { 
-    test('Must upload the file to cloudinary successfully', async() => {
+    test('Should upload the file to cloudinary successfully', async() => {
         const imageUrl = 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg';
         const resp = await fetch( imageUrl );
         const blob = await resp.blob();
@@ -28,7 +28,7 @@ describe('Tests in fileUpload', () => {
 
     });
 
-    test('Must return null', async() => { 
+    test('Should return null', async() => { 
         const file = new File([], 'photo.jpg');
 
         const url = await fileUpload( file );
