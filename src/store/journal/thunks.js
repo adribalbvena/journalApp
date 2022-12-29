@@ -14,12 +14,11 @@ export const startNewNote = () => {
         const newNote = {
             title: '',
             body: '',
-            imageUrls: [],
             date: new Date().getTime(),
         }
 
         const newDoc = doc( collection( FirebaseDB, `${ uid }/journal/notes` ));
-        const setDocResp = await setDoc( newDoc, newNote );
+        await setDoc( newDoc, newNote );
 
         //creating the new note id
         newNote.id = newDoc.id;
