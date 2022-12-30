@@ -1,10 +1,17 @@
 import { v2 as cloudinary } from 'cloudinary';
+import { getEnvironments } from '../../src/helpers';
 import { fileUpload } from "../../src/helpers/fileUpload";
 
+const {
+    VITE_CLOUDINARY_APIKEY,
+    VITE_CLOUDINARY_APISECRET,
+    VITE_CLOUDINARY_NAME
+} = getEnvironments();
+
 cloudinary.config({
-    cloud_name: 'reactapps',
-    api_key: '518841923421927',
-    api_secret: 'x-jqzyNAIRGQGVwyCWTKbQ3YTxo',
+    cloud_name: VITE_CLOUDINARY_NAME,
+    api_key: VITE_CLOUDINARY_APIKEY,
+    api_secret: VITE_CLOUDINARY_APISECRET,
     secure: true
 });
 
